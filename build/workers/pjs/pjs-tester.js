@@ -313,12 +313,17 @@ PJSTester.prototype.testMethods = {
      * Returns a new structure from the combination of a pattern and a
      * constraint
      */
-    structure: function(pattern, constraint) {
+    structure = function (pattern, constraint) {
+        if (pattern && pattern.pattern) {   // Pattern is already a structure!
+            constraint = and(pattern.constraint, constraint);
+            pattern = pattern.pattern;
+        }
+        
         return {
             pattern: pattern,
             constraint: constraint
         };
-    },
+    };
 
     /*
      * Creates a new variable constraint
